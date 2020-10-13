@@ -5,19 +5,24 @@ class StockInfo extends Component {
     constructor() {
         super();
         this.state = {
-        prices: []
+        stockinfo: []
         }
     }
     componentDidMount() {
         fetch('/stockinfo')
             .then(res => res.json())
-            .then(prices => this.setState({prices}, () => console.log('stock info fetched', prices)));
+            .then(stockinfo => this.setState({stockinfo}, () => console.log('stock info fetched', stockinfo)));
     }
     
     render() {
         return (
         <div>
-            <h2>Stock Chart</h2>
+            <h2>Stock Info</h2>
+                <ul>
+                    {this.state.stockinfo.map(info =>
+                        <li key={info.Id}>ID: { info.Id } Price: { info.Close } Volume: {info.Volume} </li>    
+                    )}
+                </ul>
         </div>
         );
     }
